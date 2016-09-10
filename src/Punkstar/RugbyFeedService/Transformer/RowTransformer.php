@@ -10,6 +10,6 @@ class RowTransformer extends TransformerAbstract
 {
     public function transform(Row $row)
     {
-        return $row;
+        return $row->toArray();
     }
 }
