@@ -23,7 +23,7 @@ abstract class AbstractLeague implements League
         $inited = array();
 
         foreach ($this->teams as $team) {
-            $inited[] = new Team($team);
+            $inited[] = Team::build($team);
         }
 
         return $inited;
