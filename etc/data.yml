@@ -33,6 +33,8 @@ teams:
       - Newcastle
     stadium: Kingston Park
   "Bristol":
+    alias:
+      - Bristol Bears
     stadium: Ashton Gate
   "London Irish":
     stadium: Madejski Stadium
@@ -168,6 +170,7 @@ leagues:
       type: bbc
     teams:
       - Bath Rugby
+      - Bristol
       - Northampton Saints
       - Exeter Chiefs
       - Saracens
