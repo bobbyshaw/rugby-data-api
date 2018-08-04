@@ -9,6 +9,12 @@ use Symfony\Component\Yaml\Yaml;
 
 class DataManager
 {
+
+    /**
+     * @var League[]
+     */
+    protected $leagues;
+
     /**
      * @var array
      */
@@ -53,31 +59,7 @@ class DataManager
         $leagues = [];
 
         foreach ($this->data['leagues'] as $leagueData) {
-            $teams = array_map(function ($teamKey) {
-                $data = $this->data['teams'][$teamKey];
-                $data['name'] = $teamKey;
-
-                return new Team($data);
-            }, $leagueData['teams']);
-
-            $league = new League($leagueData, $teams);
-
-            $fixtures = [];
-            foreach ($leagueData['calendar'] as $calendar) {
-                switch ($calendar['type']) {
-                    case 'sotic':
-                        $fixtures[] = ICal::fromUrl($calendar['url'], $league);
-                        break;
-                    case 'bbc':
-                        $fixtures[] = BBCSportFixtureProvider::fromUrl($calendar['url'], $league);
-                        break;
-                    default:
-                        throw new \InvalidArgumentException('Invalid calendar type found');
-                }
-            }
-
-            $league->setFixtures(new FixtureSet($fixtures));
-            $league->setTable(new Table(BBCSportTableProvider::fromUrl($leagueData['table']['url'], $league)));
+            $league = League::buildFromArray($leagueData, $this->data['teams']);
 
             $leagues[] = $league;
         }
@@ -86,15 +68,21 @@ class DataManager
     }
 
     /**
-     * @param $searchString
+     * @param $url
      * @return null|League
      * @throws \Exception
      */
-    public function getLeague($searchString)
+    public function getLeague($url)
     {
-        foreach ($this->getLeagues() as $league) {
-            if ($league->isAliasedTo($searchString)) {
-                return $league;
+
+        if (isset($this->leagues[$url])) {
+            return $this->leagues[$url];
+        }
+
+        foreach ($this->data['leagues'] as $leagueData) {
+            if ($leagueData['url'] == $url) {
+                $this->leagues[$url] = League::buildFromArray($leagueData, $this->data['teams']);
+                return $this->leagues[$url];
             }
         }
 

@@ -2,6 +2,10 @@
 
 namespace Punkstar\RugbyFeed;
 
+use Punkstar\RugbyFeed\FixtureProvider\BBCSport as BBCSportFixtureProvider;
+use Punkstar\RugbyFeed\FixtureProvider\ICal;
+use Punkstar\RugbyFeed\TableProvider\BBCSport as BBCSportTableProvider;
+
 class League
 {
 
@@ -11,6 +15,43 @@ class League
     protected $table;
 
     private $teamAliasCache = [];
+
+    /**
+     * @param $data
+     *
+     * @throws \Exception
+     * @return self
+     */
+    public static function buildFromArray($data, $teams) {
+        $teams = array_map(function ($teamKey) use ($teams) {
+            $data = $teams[$teamKey];
+            $data['name'] = $teamKey;
+
+            return new Team($data);
+        }, $data['teams']);
+
+        $league = new self($data, $teams);
+
+        $fixtures = [];
+        foreach ($data['calendar'] as $calendar) {
+            switch ($calendar['type']) {
+                case 'sotic':
+                    $fixtures[] = ICal::fromUrl($calendar['url'], $league);
+                    break;
+                case 'bbc':
+                    $fixtures[] = BBCSportFixtureProvider::fromUrl($calendar['url'], $league);
+                    break;
+                default:
+                    throw new \InvalidArgumentException('Invalid calendar type found');
+            }
+        }
+
+        $league->setFixtures(new FixtureSet($fixtures));
+        $league->setTable(new Table(BBCSportTableProvider::fromUrl($data['table']['url'], $league)));
+
+        return $league;
+
+    }
 
     public function __construct($data, array $teams, FixtureSet $fixtures = null, Table $table = null)
     {
