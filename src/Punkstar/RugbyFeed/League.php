@@ -4,12 +4,13 @@ namespace Punkstar\RugbyFeed;
 
 class League
 {
+
     protected $teams;
     protected $data;
     protected $fixtures;
     protected $table;
 
-    public function __construct($data, array $teams, FixtureSet $fixtures, Table $table)
+    public function __construct($data, array $teams, FixtureSet $fixtures = null, Table $table = null)
     {
         $this->data = $data;
         $this->teams = $teams;
@@ -40,6 +41,7 @@ class League
 
     /**
      * @param $teamSearchString
+     *
      * @return Team
      */
     public function getTeam($teamSearchString)
@@ -55,6 +57,7 @@ class League
 
     /**
      * @param $searchString
+     *
      * @return bool
      */
     public function isAliasedTo($searchString)
@@ -73,11 +76,21 @@ class League
     }
 
     /**
+     * @param FixtureSet $fixtures
+     */
+    public function setFixtures(FixtureSet $fixtures)
+    {
+        $this->fixtures = $fixtures;
+    }
+
+    /**
+     * @param Team $team
+     *
      * @return Fixture[]
      */
-    public function getFixturesForTeam($teamSearchString)
+    public function getFixturesForTeam($team)
     {
-        return $this->fixtures->getEventsFromTeam($teamSearchString);
+        return $this->fixtures->getEventsFromTeam($team);
     }
 
     /**
@@ -86,5 +99,13 @@ class League
     public function getTable()
     {
         return $this->table;
+    }
+
+    /**
+     * @param Table $table
+     */
+    public function setTable($table)
+    {
+        $this->table = $table;
     }
 }

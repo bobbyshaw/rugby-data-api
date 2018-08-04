@@ -38,11 +38,14 @@ class FixtureSet
      */
     public function getEventsFromTeam(Team $team)
     {
-        $events = array();
+        $events = [];
 
         foreach ($this->getFixtures() as $event)
         {
-            if ($team->isAliasedTo($event->getAwayTeam()->getName()) || $team->isAliasedTo($event->getHomeTeam()->getName())) {
+            if (is_null($event->getAwayTeam()) || is_null($event->getHomeTeam())) {
+                var_dump($event); exit;
+            }
+            if ($team->getName() == $event->getAwayTeam()->getName() || $team->getName() == $event->getHomeTeam()->getName()) {
                 $events[] = $event;
             }
         }

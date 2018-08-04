@@ -3,10 +3,27 @@
 namespace Punkstar\RugbyFeedTest\Calendar;
 
 use PHPUnit\Framework\TestCase;
+use Punkstar\RugbyFeed\DataManager;
 use Punkstar\RugbyFeed\Fixture;
 
 class FixtureTest extends TestCase
 {
+    /**
+     * @var DataManager
+     */
+    private $dataManager;
+
+    /**
+     * @throws \Exception
+     */
+    public function setUp()
+    {
+        $this->dataManager = new DataManager();
+    }
+
+    /**
+     * @throws \Exception
+     */
     public function testConstruct()
     {
         $home_team = "Northampton Saints";
@@ -14,6 +31,7 @@ class FixtureTest extends TestCase
         $home_score = 53;
         $away_score = 6;
         $kickoff = strtotime("5th September 2014");
+        $league = $this->dataManager->getLeague('aviva');
 
         $fixture = new Fixture(
             $home_team,
@@ -21,7 +39,8 @@ class FixtureTest extends TestCase
             $home_score,
             $away_score,
             null,
-            $kickoff
+            $kickoff,
+            $league
         );
 
         $this->assertEquals($home_team, $fixture->getHomeTeam()->getName());
@@ -35,6 +54,7 @@ class FixtureTest extends TestCase
 
     /**
      * @test
+     * @throws \Exception
      */
     public function testGetTeamsWithScores()
     {
@@ -42,7 +62,9 @@ class FixtureTest extends TestCase
             'SUMMARY' => 'Northampton Saints 53 - 6 Gloucester Rugby'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals('Northampton Saints', $event->getHomeTeam()->getName());
         $this->assertEquals('Gloucester', $event->getAwayTeam()->getName());
@@ -50,6 +72,7 @@ class FixtureTest extends TestCase
 
     /**
      * @test
+     * @throws \Exception
      */
     public function testGetTeamsWithoutScores()
     {
@@ -57,54 +80,71 @@ class FixtureTest extends TestCase
             'SUMMARY' => 'Newcastle Falcons v Harlequins'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals('Newcastle Falcons', $event->getHomeTeam()->getName());
         $this->assertEquals('Harlequins', $event->getAwayTeam()->getName());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBtSportStripped()
     {
         $data = array(
             'SUMMARY' => 'Harlequins v Saracens BT Sport'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals('Harlequins', $event->getHomeTeam()->getName());
         $this->assertEquals('Saracens', $event->getAwayTeam()->getName());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBbcNiStripped()
     {
         $data = array(
             'SUMMARY' => 'Ulster Rugby v Edinburgh Rugby BBCNI/ALBA'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('pro14');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals('Ulster', $event->getHomeTeam()->getName());
         $this->assertEquals('Edinburgh', $event->getAwayTeam()->getName());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testTg4Stripped() {
         $data = array(
             'SUMMARY' => 'Leinster Rugby v Glasgow Warriors TG4/BBC2SC'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('pro14');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals('Leinster', $event->getHomeTeam()->getName());
         $this->assertEquals('Glasgow', $event->getAwayTeam()->getName());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testBbcWStripped()
     {
         $data = array(
             'SUMMARY' => 'Cardiff Blues v Ospreys BBCW'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('pro14');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals('Cardiff Blues', $event->getHomeTeam()->getName());
         $this->assertEquals('Ospreys', $event->getAwayTeam()->getName());
@@ -112,6 +152,7 @@ class FixtureTest extends TestCase
 
     /**
      * @test
+     * @throws \Exception
      */
     public function testGetScores()
     {
@@ -119,7 +160,8 @@ class FixtureTest extends TestCase
             'SUMMARY' => 'Newcastle Falcons 10 - 5 Harlequins'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals(10, $event->getHomeScore());
         $this->assertEquals(5, $event->getAwayScore());
@@ -127,6 +169,7 @@ class FixtureTest extends TestCase
 
     /**
      * @test
+     * @throws \Exception
      */
     public function testNoScoresAvailable()
     {
@@ -134,7 +177,8 @@ class FixtureTest extends TestCase
             'SUMMARY' => 'Newcastle Falcons v Harlequins'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertNull($event->getHomeScore());
         $this->assertNull($event->getAwayScore());
@@ -142,6 +186,7 @@ class FixtureTest extends TestCase
 
     /**
      * @test
+     * @throws \Exception
      */
     public function testGameFinishedYes()
     {
@@ -149,13 +194,15 @@ class FixtureTest extends TestCase
             'SUMMARY' => 'Newcastle Falcons 10 - 5 Harlequins'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertTrue($event->isGameFinished());
     }
 
     /**
      * @test
+     * @throws \Exception
      */
     public function testGameFinishedNo()
     {
@@ -163,13 +210,15 @@ class FixtureTest extends TestCase
             'SUMMARY' => 'Newcastle Falcons v Harlequins'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertFalse($event->isGameFinished());
     }
 
     /**
      * @test
+     * @throws \Exception
      */
     public function testGetGameLocation()
     {
@@ -177,18 +226,23 @@ class FixtureTest extends TestCase
             'LOCATION' => 'Franklin\'s Gardens'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals("Franklin's Gardens", $event->getLocation());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testGetKickOff()
     {
         $data = array(
             'DTSTART' => '20140905T184500Z'
         );
 
-        $event = Fixture::buildFromArray($data);
+        $league = $this->dataManager->getLeague('aviva');
+        $event = Fixture::buildFromArray($data, $league);
 
         $this->assertEquals("Fri, 05 Sep 2014 18:45:00 +0000", $event->getKickoffDateTime()->format('r'));
     }

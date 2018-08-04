@@ -2,9 +2,6 @@
 
 namespace Punkstar\RugbyFeed;
 
-use ICal\EventObject;
-use Punkstar\RugbyFeed\Team;
-
 class Fixture
 {
 
@@ -26,9 +23,15 @@ class Fixture
     public $location;
     public $kickoff;
 
-    public static function buildFromArray($array, $dataManager = null)
+    /**
+     * @param array $array
+     * @param League $league
+     *
+     * @return Fixture
+     * @throws \Exception
+     */
+    public static function buildFromArray($array, League $league)
     {
-        $dataManager = $dataManager ?? new DataManager();
 
         $obj = new self();
 
@@ -53,16 +56,16 @@ class Fixture
             if ($is_fixture) {
                 list($full_match, $home_team, $away_team) = $fixture_match;
 
-                $obj->home_team = $dataManager->getTeam(trim($home_team));
-                $obj->away_team = $dataManager->getTeam(trim($away_team));
+                $obj->home_team = $league->getTeam(trim($home_team));
+                $obj->away_team = $league->getTeam(trim($away_team));
             } else {
                 $is_result = preg_match(self::REGEX_RESULT, $summary, $result_match);
 
                 if ($is_result) {
                     list($full_match, $home_team, $home_score, $away_score, $away_team) = $result_match;
 
-                    $obj->home_team = $dataManager->getTeam(trim($home_team));
-                    $obj->away_team = $dataManager->getTeam(trim($away_team));
+                    $obj->home_team = $league->getTeam(trim($home_team));
+                    $obj->away_team = $league->getTeam(trim($away_team));
                     $obj->home_score = trim($home_score);
                     $obj->away_score = trim($away_score);
                 }
@@ -72,15 +75,22 @@ class Fixture
         return $obj;
     }
 
-    public static function buildFromICalEvent(\ICal\Event $event)
+    /**
+     * @param \ICal\Event $event
+     * @param League $league
+     *
+     * @return Fixture
+     * @throws \Exception
+     */
+    public static function buildFromICalEvent(\ICal\Event $event , League $league)
     {
         $array = [
             'LOCATION' => $event->location,
             'SUMMARY'  => $event->summary,
-            'DTSTART'  => $event->dtstart
+            'DTSTART'  => $event->dtstart,
         ];
 
-        return self::buildFromArray($array);
+        return self::buildFromArray($array, $league);
     }
 
     /**
@@ -92,7 +102,7 @@ class Fixture
      * @param int              $away_score
      * @param string           $location
      * @param int              $kickoff
-     * @param DataManager|null $dataManager
+     * @param League           $league
      *
      * @throws \Exception
      */
@@ -103,23 +113,20 @@ class Fixture
         $away_score = null,
         $location = null,
         $kickoff = null,
-        $dataManager = null
+        $league = null
     ) {
 
-        $dataManager = $dataManager ?? new DataManager();
-
-        $this->home_team = $home_team ? $dataManager->getTeam(trim($home_team)) : null;
-        $this->away_team = $away_team ? $dataManager->getTeam(trim($away_team)) : null;
-        $this->home_score = $home_score ? trim($home_score) : null;
-        $this->away_score = $home_score ? trim($away_score) : null;
+        $this->home_team = $home_team ? $league->getTeam($home_team) : null;
+        $this->away_team = $away_team ? $league->getTeam($away_team) : null;
+        $this->home_score = $home_score;
+        $this->away_score = $away_score;
+        $this->kickoff = $kickoff;
 
         if ($location) {
             $this->location = trim($location);
         } elseif ($this->home_team) {
             $this->location = $this->home_team->getStadium();
         }
-
-        $this->kickoff = $kickoff ? trim($kickoff) : null;
     }
 
     /**
