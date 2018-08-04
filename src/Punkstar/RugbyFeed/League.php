@@ -4,16 +4,11 @@ namespace Punkstar\RugbyFeed;
 
 class League
 {
-//    public function getCalendarUrl();
-//    public function getTeams();
-//    public function getCalendar();
-//    public function getUrlKey();
-    
     protected $teams;
     protected $data;
     protected $fixtures;
     protected $table;
-    
+
     public function __construct($data, array $teams, FixtureSet $fixtures, Table $table)
     {
         $this->data = $data;
@@ -21,12 +16,12 @@ class League
         $this->fixtures = $fixtures;
         $this->table = $table;
     }
-    
+
     public function getName()
     {
         return $this->data['name'] ?? 'unknown';
     }
-    
+
     /**
      * @return string
      */
@@ -34,7 +29,7 @@ class League
     {
         return $this->data['url'] ?? 'unknown';
     }
-    
+
     /**
      * @return Team[]
      */
@@ -42,7 +37,7 @@ class League
     {
         return $this->teams;
     }
-    
+
     /**
      * @param $teamSearchString
      * @return Team
@@ -54,10 +49,10 @@ class League
                 return $team;
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * @param $searchString
      * @return bool
@@ -65,10 +60,10 @@ class League
     public function isAliasedTo($searchString)
     {
         $aliases = array_map('strtolower', [$this->getName(), $this->getUrlKey()]);
-        
+
         return in_array($searchString, $aliases);
     }
-    
+
     /**
      * @return Fixture[]
      */
@@ -76,7 +71,7 @@ class League
     {
         return $this->fixtures->getFixtures();
     }
-    
+
     /**
      * @return Fixture[]
      */
@@ -84,7 +79,7 @@ class League
     {
         return $this->fixtures->getEventsFromTeam($teamSearchString);
     }
-    
+
     /**
      * @return Table
      */
@@ -92,47 +87,4 @@ class League
     {
         return $this->table;
     }
-
-    //
-//    /**
-//     * @return Team[]
-//     */
-//    public function getTeams()
-//    {
-//        $inited = array();
-//
-//        foreach ($this->teams as $team) {
-//            $inited[] = Team::build($team);
-//        }
-//
-//        return $inited;
-//    }
-//
-//    public function getCalendarUrl()
-//    {
-//        return $this->calendar_url;
-//    }
-//
-//    public function getCalendar()
-//    {
-//        return Calendar::fromUrl($this->getCalendarUrl());
-//    }
-//
-//    public function getFixtures()
-//    {
-//        return $this->getCalendar()->getEvents();
-//    }
-//
-//    public function getUrlKey()
-//    {
-//        return $this->url_key;
-//    }
-//
-//    public function getTable()
-//    {
-//        $bbc_sport_parser = BBCSportTableParser::fromUrl($this->table_url);
-//        $table = new Table($bbc_sport_parser->getRows());
-//
-//        return $table;
-//    }
 }
