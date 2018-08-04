@@ -4,14 +4,26 @@ namespace Punkstar\RugbyFeed;
 
 class Team
 {
+    private $data;
+
+    /**
+     * @var string
+     */
+    private $url;
+
     public function __construct($data)
     {
         $this->data = $data;
+
+        $this->url = $this->data['url'] ?? str_replace(' ', '_', strtolower($this->getName()));
     }
 
+    /**
+     * @return string
+     */
     public function getUrlKey()
     {
-        return $this->data['url'] ?? str_replace(' ', '_', strtolower($this->getName()));
+        return $this->url;
     }
 
     /**
@@ -22,7 +34,7 @@ class Team
     {
         $aliases = array_map('strtolower', $this->data['alias'] ?? []);
         $aliases[] = strtolower($this->getName());
-        $aliases[] = strtolower($this->getUrlKey());
+        $aliases[] = $this->getUrlKey();
 
         return in_array(strtolower($searchString), $aliases);
     }
