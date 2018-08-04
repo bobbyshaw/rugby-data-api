@@ -10,6 +10,8 @@ class League
     protected $fixtures;
     protected $table;
 
+    private $teamAliasCache = [];
+
     public function __construct($data, array $teams, FixtureSet $fixtures = null, Table $table = null)
     {
         $this->data = $data;
@@ -46,8 +48,13 @@ class League
      */
     public function getTeam($teamSearchString)
     {
-        foreach ($this->getTeams() as $team) {
+        if (isset($this->teamAliasCache[$teamSearchString])) {
+            return $this->getTeams()[$this->teamAliasCache[$teamSearchString]];
+        }
+
+        foreach ($this->getTeams() as $k => $team) {
             if ($team->isAliasedTo($teamSearchString)) {
+                $this->teamAliasCache[$teamSearchString] = $k;
                 return $team;
             }
         }
