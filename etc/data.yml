@@ -107,6 +107,51 @@ teams:
       - Toyota Cheetahs
     conference: A
     stadium: Toyota stadium
+  "Bulls":
+    conference: South Africa
+    stadium: Loftus Versfeld
+  "Lions":
+    conference: South Africa
+    stadium: Emirates Airline Park
+  "Sharks":
+    conference: South Africa
+    stadium: Growthpoints Kings Park
+  "Stormers":
+    conference: South Africa
+    stadium: DHL Newlands
+  "Jaguares":
+    conference: South Africa
+    stadium: Estadio José Amalfitani
+  "Brumbies":
+    conference: Australia
+    stadium: GIO Stadium Canberra
+  "Rebels":
+    conference: Australia
+    stadium: AAMI Park
+  "Reds":
+    conference: Australia
+    stadium: Suncorp Stadium
+  "Sunwolves":
+    conference: Australia
+    stadium: Chichibunomiya Rugby Stadium
+  "Waratahs":
+    conference: Australia
+    stadium: Allianz Stadium
+  "Crusaders":
+    conference: New Zealand
+    stadium: AMI Stadium
+  "Hurricanes":
+    conference: New Zealand
+    stadium: Westpac Stadium
+  "Chiefs":
+    conference: New Zealand
+    stadium: FMG Stadium Waikato
+  "Highlanders":
+    conference: New Zealand
+    stadium: Forsyth Barr Stadium
+  "Blues":
+    conference: New Zealand
+    stadium: Eden Park
 
 leagues:
   - name: Aviva Premiership
@@ -162,3 +207,32 @@ leagues:
       - Cardiff Blues
       - Southern Kings
       - Cheetahs
+
+  - name: Super Rugby
+    url: super
+    calendar:
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/super-rugby/results
+        type: bbc
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/super-rugby/fixtures
+        type: bbc
+    table:
+      url: https://www.bbc.co.uk/sport/rugby-union/super-rugby/table
+      type: bbc
+    teams:
+      - Blues
+      - Brumbies
+      - Bulls
+      - Chiefs
+      - Crusaders
+      - Highlanders
+      - Hurricanes
+      - Jaguares
+      - Lions
+      - Rebels
+      - Reds
+      - Sharks
+      - Stormers
+      - Sunwolves
+      - Waratahs
