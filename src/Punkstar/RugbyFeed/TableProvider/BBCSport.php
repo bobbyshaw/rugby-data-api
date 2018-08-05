@@ -28,6 +28,10 @@ class BBCSport implements TableProvider
         $this->league = $league;
     }
 
+    /**
+     * @return array|Row[]
+     * @throws \Exception
+     */
     public function getRows()
     {
         $document = new nokogiri($this->html);
@@ -41,6 +45,10 @@ class BBCSport implements TableProvider
             $tableRow->position = $row['td'][0]['#text'][0];
 
             $tableRow->team = $this->league->getTeam($this->getTeamFromRow($row));
+
+            if (is_null($tableRow->team)) {
+                throw new \Exception("Unable to recognise team in table");
+            }
 
             $tableRow->played = $row['td'][2]['#text'][0];
             $tableRow->won = $row['td'][3]['#text'][0];
