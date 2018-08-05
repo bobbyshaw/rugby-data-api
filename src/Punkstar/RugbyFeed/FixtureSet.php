@@ -42,9 +42,6 @@ class FixtureSet
 
         foreach ($this->getFixtures() as $event)
         {
-            if (is_null($event->getAwayTeam()) || is_null($event->getHomeTeam())) {
-                var_dump($event); exit;
-            }
             if ($team->getName() == $event->getAwayTeam()->getName() || $team->getName() == $event->getHomeTeam()->getName()) {
                 $events[] = $event;
             }
