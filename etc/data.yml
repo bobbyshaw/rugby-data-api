@@ -154,6 +154,48 @@ teams:
   "Blues":
     conference: New Zealand
     stadium: Eden Park
+  "ASM Clermont Auvergne":
+    alias:
+    - Clermont Auvergne
+    stadium: Parc des Sports Marcel Michelin
+  "Atlantique Stade Rochelais":
+    alias:
+    - Stade Rochelais
+    stadium: Stade Marcel-Deflandre
+  "Castres Olympique":
+    alias:
+      - Castres
+    stadium: Stade Pierre-Fabre
+  "FC Grenoble":
+    stadium: Stade des Alpes
+  "Lyon OU":
+    alias:
+      - Lyon Olympique Universitaire
+    stadium: Matmut Stadium de Gerland
+  "Montpellier":
+    alias:
+      - Montpellier Hérault
+    stadium: Altrad Stadium
+  "Perpignan":
+    stadium: Stade Aimé Giral
+  "Racing 92":
+    stadium: Paris La Défense Arena
+  "RC Toulonnais":
+    alias:
+    - Toulonnais
+    stadium: Stade Mayol
+  "Section Paloise":
+    stadium: Stade du Hameau
+  "Stade Français Paris":
+    alias:
+    - Stade Français
+    stadium: Stade Jean-Bouin
+  "Stade Toulousain":
+    stadium: Stade Ernest-Wallon
+  "SU Agen Lot-et-Garonne":
+    stadium: Stade Armandie
+  "Union Bordeaux Bègles":
+    stadium: Stade Chaban-Delmas
 
 leagues:
   - name: Aviva Premiership
@@ -240,3 +282,31 @@ leagues:
       - Stormers
       - Sunwolves
       - Waratahs
+
+  - name: French Top 14
+    url: top_14
+    calendar:
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/top-14/fixtures
+        type: bbc
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/top-14/results
+        type: bbc
+    table:
+      url: https://www.bbc.co.uk/sport/rugby-union/top-14/table
+      type: bbc
+    teams:
+      - ASM Clermont Auvergne
+      - Atlantique Stade Rochelais
+      - Castres Olympique
+      - FC Grenoble
+      - Lyon OU
+      - Montpellier
+      - Perpignan
+      - Racing 92
+      - RC Toulonnais
+      - Section Paloise
+      - Stade Français Paris
+      - Stade Toulousain
+      - SU Agen Lot-et-Garonne
+      - Union Bordeaux Bègles
