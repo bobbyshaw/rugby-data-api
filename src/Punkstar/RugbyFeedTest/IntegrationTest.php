@@ -14,6 +14,7 @@ class IntegrationTest extends TestCase
     /**
      * @param $route
      * @dataProvider routeDataProvider
+     * @throws \Exception
      */
     public function testAllRoutesReturnSuccessfulResponse($route)
     {
@@ -27,6 +28,7 @@ class IntegrationTest extends TestCase
     
     /**
      * @return array
+     * @throws \Exception
      */
     public function routeDataProvider()
     {
