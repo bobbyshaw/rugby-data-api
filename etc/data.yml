@@ -249,6 +249,17 @@ teams:
   "Tonga":
     stadium: Teufaiva Sport Stadium
   "United States":
+  "Timisoara Saracens":
+    alias:
+      - Timișoara Saracens
+    stadium: Stadionul Dan Păltinișanu
+  "Enisei-STM":
+    alias:
+      - Yenisey-STM Krasnoyarsk
+  "Krasny Yar":
+    alias:
+      - Krasny Yar Krasnoyarsk
+    stadium: Krasny Yar Stadium
 
 leagues:
   - name: Aviva Premiership
@@ -468,3 +479,46 @@ leagues:
       - Stade Toulousain
       - Ulster
       - Wasps
+  - name: Challenge Cup
+    url: challenge_cup
+    calendar:
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/european-challenge-cup/results
+        type: bbc
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/european-challenge-cup/fixtures
+        type: bbc
+    table:
+      url: https://www.bbc.co.uk/sport/rugby-union/european-challenge-cup/table
+      type: bbc
+    teams:
+      - ASM Clermont Auvergne
+      - Atlantique Stade Rochelais
+      - Cardiff Blues
+      - Benetton
+      - Bristol
+      - Club Athlétique Brive Corrèze Limousin
+      - Connacht
+      - Dragons
+      - Edinburgh
+      - Enisei-STM
+      - FC Grenoble
+      - Gloucester
+      - Harlequins
+      - Krasny Yar
+      - London Irish
+      - Lyon OU
+      - Newcastle Falcons
+      - Northampton Saints
+      - Ospreys
+      - Perpignan
+      - Sale Sharks
+      - Section Paloise
+      - Stade Français Paris
+      - Stade Toulousain
+      - SU Agen Lot-et-Garonne
+      - Timisoara Saracens
+      - Union Bordeaux Bègles
+      - Union Sportive Oyonnax Rugby
+      - Worcester
+      - Zebre
