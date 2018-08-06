@@ -47,7 +47,7 @@ class BBCSport implements TableProvider
             $tableRow->team = $this->league->getTeam($this->getTeamFromRow($row));
 
             if (is_null($tableRow->team)) {
-                throw new \Exception("Unable to recognise team in table");
+                throw new \Exception("Unable to recognise team in table: " . $this->getTeamFromRow($row));
             }
 
             $tableRow->played = $row['td'][2]['#text'][0];
