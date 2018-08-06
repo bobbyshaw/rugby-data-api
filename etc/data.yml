@@ -221,6 +221,19 @@ teams:
       - Oyonnax Rugby
       - Oyonnax
     stadium: Stade Charles-Mathon
+  "England":
+    stadium: Twickenham
+  "Wales":
+    stadium: Millenium Stadium
+  "Scotland":
+    stadium: Murrayfield
+  "Italy":
+    stadium: Stadio Flaminio
+  "France":
+    stadium: Stade de France
+  "Ireland":
+    stadium: Aviva Stadium
+
 
 leagues:
   - name: Aviva Premiership
@@ -337,3 +350,22 @@ leagues:
       - SU Agen Lot-et-Garonne
       - Union Bordeaux Bègles
       - Union Sportive Oyonnax Rugby
+  - name: Six Nations
+    url: six_nations
+    calendar:
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/six-nations/fixtures
+        type: bbc
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/six-nations/results
+        type: bbc
+    table:
+      url: https://www.bbc.co.uk/sport/rugby-union/six-nations/table
+      type: bbc
+    teams:
+      - England
+      - France
+      - Ireland
+      - Italy
+      - Scotland
+      - Wales
