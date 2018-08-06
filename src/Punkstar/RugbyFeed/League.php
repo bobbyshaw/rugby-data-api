@@ -110,7 +110,7 @@ class League
      */
     public function isAliasedTo($searchString)
     {
-        $aliases = array_map('strtolower', [$this->getName(), $this->getUrlKey()]);
+        $aliases = array_map('mb_strtolower', [$this->getName(), $this->getUrlKey()]);
 
         return in_array($searchString, $aliases);
     }

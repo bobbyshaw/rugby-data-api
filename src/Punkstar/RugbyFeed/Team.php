@@ -15,7 +15,7 @@ class Team
     {
         $this->data = $data;
 
-        $this->url = $this->data['url'] ?? str_replace(' ', '_', strtolower($this->getName()));
+        $this->url = $this->data['url'] ?? str_replace(' ', '_', mb_strtolower($this->getName()));
     }
 
     /**
@@ -32,11 +32,11 @@ class Team
      */
     public function isAliasedTo($searchString)
     {
-        $aliases = array_map('strtolower', $this->data['alias'] ?? []);
-        $aliases[] = strtolower($this->getName());
+        $aliases = array_map('mb_strtolower', $this->data['alias'] ?? []);
+        $aliases[] = mb_strtolower($this->getName());
         $aliases[] = $this->getUrlKey();
 
-        return in_array(strtolower($searchString), $aliases);
+        return in_array(mb_strtolower($searchString), $aliases);
     }
 
     public function getName()
