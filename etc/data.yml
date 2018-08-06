@@ -57,10 +57,9 @@ teams:
   "Ospreys":
     conference: A
     stadium: Liberty Stadium
-  "Benneton":
+  "Benetton":
     alias:
       - Benetton Rugby
-      - Benetton
       - Benetton Treviso
       - Treviso
     conference: B
@@ -296,7 +295,7 @@ leagues:
       - Munster
       - Edinburgh
       - Ospreys
-      - Benneton
+      - Benetton
       - Scarlets
       - Ulster
       - Connacht
@@ -396,6 +395,7 @@ leagues:
         type: bbc
     table:
       url: https://www.bbc.co.uk/sport/rugby-union/rugby-championship/table
+      type: bbc
     teams:
       - Argentina
       - Australia
@@ -429,3 +429,42 @@ leagues:
       - Tonga
       - United States
       - Wales
+  - name: Champions Cup
+    url: champions_cup
+    calendar:
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/european-cup/fixtures
+        type: bbc
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/european-cup/results
+        type: bbc
+    table:
+      url: https://www.bbc.co.uk/sport/rugby-union/european-cup/table
+      type: bbc
+    teams:
+      - ASM Clermont Auvergne
+      - Atlantique Stade Rochelais
+      - Benetton
+      - Bath Rugby
+      - Cardiff Blues
+      - Castres Olympique
+      - Edinburgh
+      - Exeter Chiefs
+      - Glasgow
+      - Gloucester
+      - Harlequins
+      - Leicester Tigers
+      - Leinster
+      - Lyon OU
+      - Montpellier
+      - Munster
+      - Newcastle Falcons
+      - Northampton Saints
+      - Ospreys
+      - Racing 92
+      - RC Toulonnais
+      - Saracens
+      - Scarlets
+      - Stade Toulousain
+      - Ulster
+      - Wasps
