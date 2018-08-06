@@ -32,17 +32,20 @@ class Fixture
      */
     public static function buildFromArray($array, League $league)
     {
-
-        $obj = new self();
-
+        $location = null;
         if (isset($array['LOCATION'])) {
-            $obj->location = $array['LOCATION'];
+            $location = trim($array['LOCATION']);
         }
 
+        $kickoff = null;
         if (isset($array['DTSTART'])) {
-            $obj->kickoff = strtotime($array['DTSTART']);
+            $kickoff = strtotime($array['DTSTART']);
         }
 
+        $home_team = null;
+        $away_team = null;
+        $home_score = null;
+        $away_score = null;
         if (isset($array['SUMMARY'])) {
             $summary = $array['SUMMARY'];
             $summary = str_replace('BBC', '', $summary);
@@ -56,23 +59,21 @@ class Fixture
             if ($is_fixture) {
                 list($full_match, $home_team, $away_team) = $fixture_match;
 
-                $obj->home_team = $league->getTeam(trim($home_team));
-                $obj->away_team = $league->getTeam(trim($away_team));
             } else {
                 $is_result = preg_match(self::REGEX_RESULT, $summary, $result_match);
 
                 if ($is_result) {
                     list($full_match, $home_team, $home_score, $away_score, $away_team) = $result_match;
-
-                    $obj->home_team = $league->getTeam(trim($home_team));
-                    $obj->away_team = $league->getTeam(trim($away_team));
-                    $obj->home_score = trim($home_score);
-                    $obj->away_score = trim($away_score);
                 }
             }
         }
 
-        return $obj;
+        $home_team = trim($home_team);
+        $away_team = trim($away_team);
+        $home_score = $home_score ? trim($home_score) : null;
+        $away_score = $away_score ? trim($away_score) : null;
+
+        return new self($league, $home_team, $away_team, $kickoff, $home_score, $away_score, $location);
     }
 
     /**
@@ -96,24 +97,24 @@ class Fixture
     /**
      * Fixture constructor.
      *
+     * @param League           $league
      * @param string           $home_team
      * @param string           $away_team
-     * @param int              $home_score
-     * @param int              $away_score
-     * @param string           $location
      * @param int              $kickoff
-     * @param League           $league
+     * @param int|null         $home_score
+     * @param int|null         $away_score
+     * @param string|null      $location
      *
      * @throws \Exception
      */
     public function __construct(
-        $home_team = null,
-        $away_team = null,
+        League $league,
+        string $home_team,
+        string $away_team,
+        int $kickoff,
         $home_score = null,
         $away_score = null,
-        $location = null,
-        $kickoff = null,
-        $league = null
+        $location = null
     ) {
 
         $this->home_team = $league->getTeam($home_team);
@@ -121,6 +122,10 @@ class Fixture
         $this->home_score = $home_score;
         $this->away_score = $away_score;
         $this->kickoff = $kickoff;
+
+        if (is_null($this->kickoff)) {
+            throw new \Exception("Found fixture with missing kickoff.");
+        }
 
         if (is_null($this->home_team)) {
             throw new \Exception("Found fixture with invalid home team name: " . $home_team);

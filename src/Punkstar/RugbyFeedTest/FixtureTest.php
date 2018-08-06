@@ -34,13 +34,13 @@ class FixtureTest extends TestCase
         $league = $this->dataManager->getLeague('aviva');
 
         $fixture = new Fixture(
+            $league,
             $home_team,
             $away_team,
+            $kickoff,
             $home_score,
             $away_score,
-            null,
-            $kickoff,
-            $league
+            null
         );
 
         $this->assertEquals($home_team, $fixture->getHomeTeam()->getName());
@@ -59,7 +59,8 @@ class FixtureTest extends TestCase
     public function testGetTeamsWithScores()
     {
         $data = array(
-            'SUMMARY' => 'Northampton Saints 53 - 6 Gloucester Rugby'
+            'SUMMARY' => 'Northampton Saints 53 - 6 Gloucester Rugby',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('aviva');
@@ -77,7 +78,8 @@ class FixtureTest extends TestCase
     public function testGetTeamsWithoutScores()
     {
         $data = array(
-            'SUMMARY' => 'Newcastle Falcons v Harlequins'
+            'SUMMARY' => 'Newcastle Falcons v Harlequins',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('aviva');
@@ -93,7 +95,8 @@ class FixtureTest extends TestCase
     public function testBtSportStripped()
     {
         $data = array(
-            'SUMMARY' => 'Harlequins v Saracens BT Sport'
+            'SUMMARY' => 'Harlequins v Saracens BT Sport',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('aviva');
@@ -109,7 +112,8 @@ class FixtureTest extends TestCase
     public function testBbcNiStripped()
     {
         $data = array(
-            'SUMMARY' => 'Ulster Rugby v Edinburgh Rugby BBCNI/ALBA'
+            'SUMMARY' => 'Ulster Rugby v Edinburgh Rugby BBCNI/ALBA',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('pro14');
@@ -124,7 +128,8 @@ class FixtureTest extends TestCase
      */
     public function testTg4Stripped() {
         $data = array(
-            'SUMMARY' => 'Leinster Rugby v Glasgow Warriors TG4/BBC2SC'
+            'SUMMARY' => 'Leinster Rugby v Glasgow Warriors TG4/BBC2SC',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('pro14');
@@ -140,7 +145,8 @@ class FixtureTest extends TestCase
     public function testBbcWStripped()
     {
         $data = array(
-            'SUMMARY' => 'Cardiff Blues v Ospreys BBCW'
+            'SUMMARY' => 'Cardiff Blues v Ospreys BBCW',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('pro14');
@@ -157,7 +163,8 @@ class FixtureTest extends TestCase
     public function testGetScores()
     {
         $data = array(
-            'SUMMARY' => 'Newcastle Falcons 10 - 5 Harlequins'
+            'SUMMARY' => 'Newcastle Falcons 10 - 5 Harlequins',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('aviva');
@@ -174,7 +181,8 @@ class FixtureTest extends TestCase
     public function testNoScoresAvailable()
     {
         $data = array(
-            'SUMMARY' => 'Newcastle Falcons v Harlequins'
+            'SUMMARY' => 'Newcastle Falcons v Harlequins',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('aviva');
@@ -191,7 +199,8 @@ class FixtureTest extends TestCase
     public function testGameFinishedYes()
     {
         $data = array(
-            'SUMMARY' => 'Newcastle Falcons 10 - 5 Harlequins'
+            'SUMMARY' => 'Newcastle Falcons 10 - 5 Harlequins',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('aviva');
@@ -207,7 +216,8 @@ class FixtureTest extends TestCase
     public function testGameFinishedNo()
     {
         $data = array(
-            'SUMMARY' => 'Newcastle Falcons v Harlequins'
+            'SUMMARY' => 'Newcastle Falcons v Harlequins',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('aviva');
@@ -223,7 +233,9 @@ class FixtureTest extends TestCase
     public function testGetGameLocation()
     {
         $data = array(
-            'LOCATION' => 'Franklin\'s Gardens'
+            'SUMMARY' => 'Newcastle Falcons v Harlequins',
+            'LOCATION' => 'Franklin\'s Gardens',
+            'DTSTART' => '20140905T184500Z'
         );
 
         $league = $this->dataManager->getLeague('aviva');
@@ -238,6 +250,7 @@ class FixtureTest extends TestCase
     public function testGetKickOff()
     {
         $data = array(
+            'SUMMARY' => 'Newcastle Falcons v Harlequins',
             'DTSTART' => '20140905T184500Z'
         );
 

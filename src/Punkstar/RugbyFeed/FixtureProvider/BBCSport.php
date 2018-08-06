@@ -77,13 +77,13 @@ class BBCSport implements FixtureProvider
                 }
 
                 $fixtures[] = new Fixture(
+                    $this->league,
                     trim($home_team),
                     trim($away_team),
+                    strtotime(trim($kickoff)),
                     isset($home_score) ? trim($home_score) : null,
                     isset($away_score) ? trim($away_score) : null,
-                    null,
-                    strtotime(trim($kickoff)),
-                    $this->league
+                    null
                 );
             }
 
