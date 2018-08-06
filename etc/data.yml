@@ -157,20 +157,30 @@ teams:
   "ASM Clermont Auvergne":
     alias:
     - Clermont Auvergne
+    - Clermont
     stadium: Parc des Sports Marcel Michelin
   "Atlantique Stade Rochelais":
     alias:
     - Stade Rochelais
+    - La Rochelle
     stadium: Stade Marcel-Deflandre
   "Castres Olympique":
     alias:
       - Castres
     stadium: Stade Pierre-Fabre
+  "Club Athlétique Brive Corrèze Limousin":
+    alias:
+      - CA Brive
+      - Brive
+    stadium: Stade Amédée-Domenech
   "FC Grenoble":
+    alias:
+      - Grenoble
     stadium: Stade des Alpes
   "Lyon OU":
     alias:
       - Lyon Olympique Universitaire
+      - Lyon
     stadium: Matmut Stadium de Gerland
   "Montpellier":
     alias:
@@ -182,20 +192,35 @@ teams:
     stadium: Paris La Défense Arena
   "RC Toulonnais":
     alias:
-    - Toulonnais
+      - Toulonnais
+      - Toulon
+      - RCT
     stadium: Stade Mayol
   "Section Paloise":
+    alias:
+        - Pau
     stadium: Stade du Hameau
   "Stade Français Paris":
     alias:
-    - Stade Français
+      - Stade Français
     stadium: Stade Jean-Bouin
   "Stade Toulousain":
+    alias:
+      - Toulouse
     stadium: Stade Ernest-Wallon
   "SU Agen Lot-et-Garonne":
+    alias:
+      - Agen
     stadium: Stade Armandie
   "Union Bordeaux Bègles":
+    alias:
+      - Bordeaux
     stadium: Stade Chaban-Delmas
+  "Union Sportive Oyonnax Rugby":
+    alias:
+      - Oyonnax Rugby
+      - Oyonnax
+    stadium: Stade Charles-Mathon
 
 leagues:
   - name: Aviva Premiership
@@ -299,6 +324,7 @@ leagues:
       - ASM Clermont Auvergne
       - Atlantique Stade Rochelais
       - Castres Olympique
+      - Club Athlétique Brive Corrèze Limousin
       - FC Grenoble
       - Lyon OU
       - Montpellier
@@ -310,3 +336,4 @@ leagues:
       - Stade Toulousain
       - SU Agen Lot-et-Garonne
       - Union Bordeaux Bègles
+      - Union Sportive Oyonnax Rugby
