@@ -116,11 +116,19 @@ class Fixture
         $league = null
     ) {
 
-        $this->home_team = $home_team ? $league->getTeam($home_team) : null;
-        $this->away_team = $away_team ? $league->getTeam($away_team) : null;
+        $this->home_team = $league->getTeam($home_team);
+        $this->away_team = $league->getTeam($away_team);
         $this->home_score = $home_score;
         $this->away_score = $away_score;
         $this->kickoff = $kickoff;
+
+        if (is_null($this->home_team)) {
+            throw new \Exception("Found fixture with invalid home team name: " . $home_team);
+        }
+
+        if (is_null($this->away_team)) {
+            throw new \Exception("Found fixture with invalid away team name: " . $away_team);
+        }
 
         if ($location) {
             $this->location = trim($location);
