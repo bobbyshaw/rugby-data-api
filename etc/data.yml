@@ -237,8 +237,19 @@ teams:
   "South Africa":
   "Argentina":
   "New Zealand":
-
-
+  "Canada":
+  "Barbarians":
+  "Fiji":
+    stadium: ANZ National Stadium
+  "Georgia":
+    stadium: Mikheil Meskhi Stadium
+  "Japan":
+    stadium: Chichibunomiya Stadium
+  "Samoa":
+    stadium: Apia Park
+  "Tonga":
+    stadium: Teufaiva Sport Stadium
+  "United States":
 
 leagues:
   - name: Aviva Premiership
@@ -390,3 +401,31 @@ leagues:
       - Australia
       - New Zealand
       - South Africa
+  - name: International
+    url: international
+    calendar:
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/international-match/fixtures
+        type: bbc
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/international-match/results
+        type: bbc
+    teams:
+      - Argentina
+      - Australia
+      - Barbarians
+      - Canada
+      - England
+      - Fiji
+      - France
+      - Georgia
+      - Ireland
+      - Italy
+      - Japan
+      - New Zealand
+      - Samoa
+      - Scotland
+      - South Africa
+      - Tonga
+      - United States
+      - Wales
