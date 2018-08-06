@@ -233,6 +233,11 @@ teams:
     stadium: Stade de France
   "Ireland":
     stadium: Aviva Stadium
+  "Australia":
+  "South Africa":
+  "Argentina":
+  "New Zealand":
+
 
 
 leagues:
@@ -369,3 +374,19 @@ leagues:
       - Italy
       - Scotland
       - Wales
+  - name: Rugby Championship
+    url: rugby_championship
+    calendar:
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/rugby-championship/fixtures
+        type: bbc
+      -
+        url: https://www.bbc.co.uk/sport/rugby-union/rugby-championship/results
+        type: bbc
+    table:
+      url: https://www.bbc.co.uk/sport/rugby-union/rugby-championship/table
+    teams:
+      - Argentina
+      - Australia
+      - New Zealand
+      - South Africa
