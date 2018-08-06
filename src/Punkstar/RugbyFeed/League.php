@@ -47,7 +47,10 @@ class League
         }
 
         $league->setFixtures(new FixtureSet($fixtures));
-        $league->setTable(new Table(BBCSportTableProvider::fromUrl($data['table']['url'], $league)));
+
+        if (isset($data['table'])) {
+            $league->setTable(new Table(BBCSportTableProvider::fromUrl($data['table']['url'], $league)));
+        }
 
         return $league;
 
